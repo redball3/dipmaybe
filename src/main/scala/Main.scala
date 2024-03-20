@@ -17,7 +17,6 @@ import cats.effect.std.UUIDGen
 import store.MeetingStore
 import java.util.UUID
 import store.StorageMeeting
-import org.http4s.server.ServerBuilder
 
 object DipMaybeService extends IOApp {
 
@@ -28,18 +27,19 @@ object DipMaybeService extends IOApp {
       MeetingStore.fromCache(cache)
     )
 
-    for {
+    val server = for {
       meetingsCache <- CaffeineCache[IO, UUID, StorageMeeting].toResource
       meetingStore = MeetingStore.fromCache(meetingsCache)
-      httpApp = Router("/" -> Routes.meetings(meetingstore)).orNotFound
-    } yield meetingStore
+      httpApp = Router("/" -> Routes.meetingsRoutes(meetingStore)).orNotFound
+      server <- EmberServerBuilder
+        .default[IO]
+        .withHost(ipv4"0.0.0.0")
+        .withPort(port"8080")
+        .withHttpApp(httpApp)
+        .build
+    } yield server
 
-    EmberServerBuilder
-      .default[IO]
-      .withHost(ipv4"0.0.0.0")
-      .withHttpApp(httpApp)
-      .withPort(port"8080")
-      .build
+    server
       .use(_ => IO.never)
       .as(ExitCode.Success)
   }
