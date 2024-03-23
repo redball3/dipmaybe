@@ -1,13 +1,15 @@
 package store
 
+import cats.Functor
+import cats.Monad
+import cats.effect.std.UUIDGen
+import cats.syntax.all._
+import http.response.ResponseMeeting
+import scalacache.Cache
+
+import java.sql.Timestamp
 import java.time.ZonedDateTime
 import java.util.UUID
-import http.response.ResponseMeeting
-import java.sql.Timestamp
-import scalacache.Cache
-import cats.effect.std.UUIDGen
-import cats.{Functor, Monad}
-import cats.syntax.all.*
 
 case class StorageMeeting(
     name: String,

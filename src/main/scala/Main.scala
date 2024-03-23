@@ -1,22 +1,21 @@
 package main
 
+import cats.effect.ExitCode
 import cats.effect.IO
 import cats.effect.IOApp
-import cats.syntax.all.*
+import cats.effect.std.UUIDGen
 import com.comcast.ip4s._
+import http.Routes
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.Router
-import http.Routes
-import org.typelevel.log4cats.slf4j.Slf4jFactory
 import org.typelevel.log4cats.LoggerFactory
-import cats.effect.ExitCode
-import scalacache._
+import org.typelevel.log4cats.slf4j.Slf4jFactory
 import scalacache.caffeine
 import scalacache.caffeine.CaffeineCache
-import cats.effect.std.UUIDGen
 import store.MeetingStore
-import java.util.UUID
 import store.StorageMeeting
+
+import java.util.UUID
 
 object DipMaybeService extends IOApp {
 

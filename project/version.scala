@@ -7,6 +7,7 @@ object Versions {
   val Circe = "0.14.1"
   val Log4Cats = "2.6.0"
   val ScalaCache = "1.0.0-M6"
+  val Logback = "1.5.3"
 }
 
 object Dependencies {
@@ -28,6 +29,8 @@ object Dependencies {
 
     // logging
     "org.typelevel" %% "log4cats-slf4j" % Versions.Log4Cats,
+    "org.typelevel" %% "log4cats-core" % Versions.Log4Cats,
+    "ch.qos.logback" % "logback-classic" % Versions.Logback,
 
     // caching
     "com.github.cb372" %% "scalacache-core" % Versions.ScalaCache,

@@ -8,5 +8,6 @@ lazy val root = project
     scalaVersion := scala3Version,
     libraryDependencies ++= Dependencies.All,
     semanticdbEnabled := true,
-    scalacOptions += "-Wunused:imports"
+    scalacOptions += "-Wunused:imports",
+    compile / run / fork := true
   )

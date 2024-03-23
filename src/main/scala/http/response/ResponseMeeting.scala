@@ -1,7 +1,8 @@
 package http.response
 
+import io.circe.Decoder
+import io.circe.Encoder
 import io.circe.generic.semiauto._
-import io.circe.{Encoder, Decoder}
 
 case class ResponseMeeting(
     name: String,
